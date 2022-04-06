@@ -1,0 +1,121 @@
+Name:         airflow-64499dddcb-4rvng
+Namespace:    airflow
+Priority:     0
+Node:         ip-192-168-13-80.us-east-2.compute.internal/192.168.13.80
+Start Time:   Fri, 01 Apr 2022 21:26:39 +0900
+Labels:       name=airflow
+              pod-template-hash=64499dddcb
+Annotations:  kubernetes.io/psp: eks.privileged
+Status:       Pending
+IP:           192.168.9.33
+IPs:
+  IP:           192.168.9.33
+Controlled By:  ReplicaSet/airflow-64499dddcb
+Init Containers:
+  init:
+    Container ID:  docker://3459caba6ba05c0265c760c960760751651fb84bc7f97ef7ced4d0a847c81a78
+    Image:         metacats/airflow-eks-demo:latest
+    Image ID:      docker-pullable://metacats/airflow-eks-demo@sha256:0b665e53878b02e6989cba5f1f52a1a60f041d9f33865cd46a04550185454c39
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      bash
+    Args:
+      -cx
+      ./tmp/airflow-test-env-init.sh 
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Fri, 01 Apr 2022 21:30:21 +0900
+      Finished:     Fri, 01 Apr 2022 21:30:21 +0900
+    Ready:          False
+    Restart Count:  5
+    Environment:
+      SQL_ALCHEMY_CONN:  <set to the key 'sql_alchemy_conn' in secret 'airflow-secrets'>  Optional: false
+    Mounts:
+      /root/airflow/airflow.cfg from airflow-configmap (rw,path="airflow.cfg")
+      /root/airflow/dags from airflow-dags (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from airflow-token-bjlbz (ro)
+Containers:
+  webserver:
+    Container ID:  
+    Image:         metacats/airflow-eks-demo:latest
+    Image ID:      
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      webserver
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      AIRFLOW_KUBE_NAMESPACE:  airflow (v1:metadata.namespace)
+      SQL_ALCHEMY_CONN:        <set to the key 'sql_alchemy_conn' in secret 'airflow-secrets'>  Optional: false
+    Mounts:
+      /root/airflow/airflow.cfg from airflow-configmap (rw,path="airflow.cfg")
+      /root/airflow/dags from airflow-dags (rw)
+      /root/airflow/logs from airflow-dags (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from airflow-token-bjlbz (ro)
+  scheduler:
+    Container ID:  
+    Image:         metacats/airflow-eks-demo:latest
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      scheduler
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      AIRFLOW_KUBE_NAMESPACE:  airflow (v1:metadata.namespace)
+      SQL_ALCHEMY_CONN:        <set to the key 'sql_alchemy_conn' in secret 'airflow-secrets'>  Optional: false
+    Mounts:
+      /root/airflow/airflow.cfg from airflow-configmap (rw,path="airflow.cfg")
+      /root/airflow/dags from airflow-dags (rw)
+      /root/airflow/logs from airflow-dags (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from airflow-token-bjlbz (ro)
+Conditions:
+  Type              Status
+  Initialized       False 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  airflow-dags:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  airflow-efs-pvc
+    ReadOnly:   false
+  airflow-dags-fake:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  airflow-dags-git:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  airflow-configmap:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      airflow-configmap
+    Optional:  false
+  airflow-token-bjlbz:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  airflow-token-bjlbz
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  4m17s                  default-scheduler  Successfully assigned airflow/airflow-64499dddcb-4rvng to ip-192-168-13-80.us-east-2.compute.internal
+  Normal   Pulled     2m58s (x4 over 3m45s)  kubelet            Successfully pulled image "metacats/airflow-eks-demo:latest"
+  Normal   Created    2m58s (x4 over 3m42s)  kubelet            Created container init
+  Normal   Started    2m58s (x4 over 3m42s)  kubelet            Started container init
+  Warning  BackOff    2m20s (x8 over 3m40s)  kubelet            Back-off restarting failed container
+  Normal   Pulling    2m6s (x5 over 4m10s)   kubelet            Pulling image "metacats/airflow-eks-demo:latest"

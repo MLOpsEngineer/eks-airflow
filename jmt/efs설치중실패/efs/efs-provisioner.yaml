@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: airflow
+  name: efs-provisioner
+spec:
+  selector:
+    matchLabels:
+      app: efs-provisioner
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: efs-provisioner
+    spec:
+      serviceAccount: efs-provisioner
+      containers:
+        - name: efs-provisioner
+          image: quay.io/external_storage/efs-provisioner:v2.4.0
+          env:
+            - name: FILE_SYSTEM_ID
+              value: file.system.id
+            - name: AWS_REGION
+              value: aws.region
+            - name: PROVISIONER_NAME
+              value: provisioner.name
+          volumeMounts:
+            - name: pvcs
+              mountPath: /pvcs
+      volumes:
+        - name: pvcs
+          nfs:
+            server: fs-09f5904cb5b88cc80.efs.ap-northeast-2.amazonaws.com
+            path: /
