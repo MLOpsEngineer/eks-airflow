@@ -45,12 +45,13 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-086149169373a14b2::fsap-06211c2684df78dbe
+    volumeHandle: fs-08b27e5fe678ee2ed::fsap-09168d24bb3b8bf6d
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: airflow-efs-pvc
+  namespace: airflow
 spec:
   accessModes:
     - ReadWriteMany

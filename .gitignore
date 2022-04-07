@@ -1,3 +1,4 @@
 *.pem
 aicore0094_accessKeys.csv
 k8s-aws-book
+.pub

@@ -5,7 +5,7 @@ kind: ClusterConfig
 metadata:
  name: Airflow-on-Kubernetes
  region: us-east-2
- version: "1.18"
+ version: "1.21"
 
 availabilityZones: ["us-east-2a", "us-east-2b", "us-east-2c"]
 
